@@ -75,7 +75,7 @@ class Tapper:
 
     async def login(self, http_client: aiohttp.ClientSession, tg_web_data: str) -> tuple[dict[str], str]:
         try:
-            response = await http_client.post(url='https://api-backend.yescoin.fun/user/login',
+            response = await http_client.post(url='https://api-backend.yescoin.fun/user/loginNew',
                                               json={"code": tg_web_data})
             response.raise_for_status()
 
