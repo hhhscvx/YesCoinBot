@@ -64,6 +64,8 @@ class Tapper:
             if with_tg is False:
                 await self.tg_client.disconnect()
 
+            tg_web_data = f"user={unquote(tg_web_data).split('user=')[1]}"
+
             return tg_web_data
 
         except InvalidSession as error:
@@ -75,8 +77,9 @@ class Tapper:
 
     async def login(self, http_client: aiohttp.ClientSession, tg_web_data: str) -> tuple[dict[str], str]:
         try:
+            json_data = {"code": tg_web_data}
             response = await http_client.post(url='https://api-backend.yescoin.fun/user/loginNew',
-                                              json={"code": tg_web_data})
+                                              json=json_data)
             response.raise_for_status()
 
             response_json = await response.json()
